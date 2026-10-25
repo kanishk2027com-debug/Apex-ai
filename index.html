@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090914">
+<meta name="description" content="Apex AI — your personal AI workspace for study, creativity and documents.">
+<link rel="manifest" href="manifest.json">
+<title>Apex AI</title>
+<style>
+:root{--bg:#090914;--panel:#121225;--panel2:#191932;--text:#f5f3ff;--muted:#aaa7c6;--violet:#9b5cff;--pink:#e34cff;--line:#2c2850;--green:#5ce1c2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#30205e 0,transparent 50%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100dvh}
+button,input,textarea,select{font:inherit}button{cursor:pointer;color:inherit}
+.app{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:100dvh;max-width:1500px;margin:auto}
+.sidebar{border-right:1px solid var(--line);padding:22px 15px;background:#0b0b19d9;display:flex;flex-direction:column;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;padding:3px 8px 20px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--violet),var(--pink));display:grid;place-items:center;font-size:22px;box-shadow:0 0 28px #9b5cff55}.brand strong{font-size:19px;letter-spacing:.3px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.newchat{background:linear-gradient(100deg,#7c3aed,#b43fe5);border:0;border-radius:13px;padding:13px;font-weight:700;box-shadow:0 8px 26px #8b42dc2b}
+.nav{display:grid;gap:7px}.nav button{border:1px solid transparent;background:transparent;text-align:left;padding:12px;border-radius:12px;color:#c9c4e6;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#201a3c;border-color:#44326b;color:white}.ico{width:22px;text-align:center;font-size:18px}
+.sidebottom{margin-top:auto}.privacy{padding:13px;background:#121225;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:12px;line-height:1.5}.privacy b{color:var(--green);display:block;margin-bottom:5px}
+.main{min-width:0;display:flex;flex-direction:column;min-height:100dvh}.topbar{height:72px;border-bottom:1px solid #292342;display:flex;align-items:center;justify-content:space-between;padding:0 25px;backdrop-filter:blur(12px);position:sticky;top:0;background:#090914c9;z-index:2}.top-title{font-weight:700}.status{font-size:12px;color:var(--green);display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 10px var(--green)}
+.content{width:min(950px,100%);margin:0 auto;padding:35px 24px 26px;flex:1;display:flex;flex-direction:column}.hero{text-align:center;margin:34px 0 26px}.orb{width:76px;height:76px;margin:0 auto 18px;border-radius:26px;background:linear-gradient(135deg,#7c3aed,#d946ef 60%,#3c82f6);display:grid;place-items:center;font-size:35px;box-shadow:0 0 55px #8b5cf655;transform:rotate(-4deg)}h1{font-size:clamp(28px,5vw,43px);letter-spacing:-1.5px;margin:0 0 10px}.gradient{background:linear-gradient(90deg,#c4a5ff,#f2a3ff,#7ee7ff);-webkit-background-clip:text;background-clip:text;color:transparent}.subtitle{color:var(--muted);font-size:14px;line-height:1.6;max-width:500px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:6px 0 25px}.card{background:linear-gradient(145deg,#17162e,#111121);border:1px solid #30294d;border-radius:17px;padding:17px;text-align:left;transition:.2s}.card:hover{border-color:#9160d9;transform:translateY(-2px)}.card .cicon{font-size:23px;margin-bottom:10px}.card b{display:block;font-size:14px;margin-bottom:5px}.card p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.messages{display:flex;flex-direction:column;gap:15px;margin:5px 0 20px}.msg{max-width:88%;padding:14px 16px;border-radius:16px;line-height:1.6;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}.msg.user{align-self:flex-end;background:linear-gradient(120deg,#6038b4,#8b43c6);border-bottom-right-radius:5px}.msg.ai{align-self:flex-start;background:#17162b;border:1px solid #30294d;border-bottom-left-radius:5px}.msg .label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#c5b1ff;display:block;margin-bottom:6px}
+.composer{position:sticky;bottom:0;padding:12px 0 max(10px,env(safe-area-inset-bottom));background:linear-gradient(0deg,var(--bg) 78%,transparent)}.inputbox{border:1px solid #423665;background:#121225;border-radius:20px;padding:12px;box-shadow:0 12px 35px #0004}.inputbox textarea{width:100%;resize:none;min-height:45px;max-height:140px;background:transparent;border:0;outline:0;color:var(--text);padding:8px;font-size:14px}.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.toolbtn{border:1px solid #3b315d;background:#1c1933;border-radius:10px;padding:8px 10px;font-size:12px;color:#d5c9f9}.send{margin-left:auto;border:0;background:linear-gradient(135deg,#8b5cf6,#d946ef);border-radius:12px;padding:10px 15px;font-weight:700}.tiny{font-size:11px;color:#777391;text-align:center;margin-top:9px;line-height:1.5}
+.panel{background:#121225;border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}.panel h2{margin:0 0 9px;font-size:20px}.panel p{color:var(--muted);font-size:13px;line-height:1.6}.field{display:grid;gap:7px;margin:15px 0}.field label{font-size:12px;color:#c8bfeb}.field input,.field select,.field textarea{width:100%;background:#0b0b18;border:1px solid #393052;border-radius:10px;padding:12px;color:white;outline:0}.primary{background:linear-gradient(100deg,#7c3aed,#b43fe5);border:0;border-radius:11px;padding:11px 15px;font-weight:700}.filebox{display:block;border:1px dashed #5b4a82;border-radius:14px;padding:24px;text-align:center;color:#c8bfeb;background:#16142a}.hidden{display:none!important}.mobilebrand{display:none}
+@media(max-width:720px){.app{display:block}.sidebar{display:none}.topbar{height:60px;padding:0 17px}.mobilebrand{display:flex;align-items:center;gap:8px;font-weight:800}.mobilebrand .logo{width:32px;height:32px;border-radius:10px;font-size:17px}.content{padding:18px 15px 16px}.hero{margin:25px 0 22px}.cards{gap:9px}.card{padding:13px}.msg{max-width:94%}.status{font-size:10px}.top-title{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">✦</div><div><strong>Apex AI</strong><small>YOUR PERSONAL AI SPACE</small></div></div>
+  <button class="newchat" onclick="showPage('chat');newChat()">＋ &nbsp; New conversation</button>
+  <nav class="nav">
+    <button class="active" data-page="chat" onclick="showPage('chat')"><span class="ico">✧</span> Apex Chat</button>
+    <button data-page="scholar" onclick="showPage('scholar')"><span class="ico">⚛</span> Apex Scholar</button>
+    <button data-page="vision" onclick="showPage('vision')"><span class="ico">▧</span> Vision & Media</button>
+    <button data-page="pdf" onclick="showPage('pdf')"><span class="ico">▤</span> PDF Studio</button>
+    <button data-page="library" onclick="showPage('library')"><span class="ico">▣</span> Library</button>
+    <button data-page="settings" onclick="showPage('settings')"><span class="ico">⚙</span> Settings</button>
+  </nav>
+  <div class="sidebottom"><div class="privacy"><b>◈ Privacy-first design</b>Chats stay in this browser unless you connect an external AI service. Review any provider's privacy terms before sending personal data.</div></div>
+</aside>
+<main class="main">
+  <header class="topbar"><div class="mobilebrand"><div class="logo">✦</div>Apex AI</div><div class="top-title" id="topTitle">Apex Chat</div><div class="status"><span class="dot"></span><span id="engineStatus">Local demo mode</span></div></header>
+  <section class="content">
+    <div id="page-chat" class="page">
+      <div class="hero" id="welcome">
+        <div class="orb">✦</div><h1>Think beyond <span class="gradient">limits.</span></h1>
+        <p class="subtitle">Your personal workspace for deep learning, creative exploration, and getting things done.</p>
+      </div>
+      <div class="cards" id="quickCards">
+        <button class="card" onclick="quickPrompt('Teach me a JEE Advanced topic at International Olympiad depth, with derivations and challenging examples.')"><div class="cicon">⚛️</div><b>JEE + Olympiad</b><p>Concepts, derivations, mechanisms, and hard problems.</p></button>
+        <button class="card" onclick="showPage('vision')"><div class="cicon">🪄</div><b>Image & media lab</b><p>Choose media and prepare an editing or analysis prompt.</p></button>
+        <button class="card" onclick="showPage('pdf')"><div class="cicon">📄</div><b>PDF Studio</b><p>Prepare notes, worksheets, tests, and solutions.</p></button>
+        <button class="card" onclick="quickPrompt('Help me plan my day with a realistic JEE Advanced study schedule.')"><div class="cicon">🎯</div><b>Plan & focus</b><p>Build a focused study plan and track progress.</p></button>
+      </div>
+      <div class="messages" id="messages"></div>
+      <div class="composer"><div class="inputbox"><textarea id="prompt" rows="2" placeholder="Ask Apex anything… (English, हिन्दी, Hinglish)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea><div class="tools"><button class="toolbtn" onclick="document.getElementById('mediaInput').click()">＋ Attach media</button><input id="mediaInput" class="hidden" type="file" accept="image/*,video/*,application/pdf" multiple onchange="handleFiles(this.files)"><button class="toolbtn" onclick="showPage('scholar')">⚛ Scholar</button><button class="send" onclick="sendMessage()">Send ↗</button></div></div><div class="tiny">Demo shell · Connect an AI endpoint in Settings to enable live AI replies. AI usage and media generation depend on connected services.</div></div>
+    </div>
+    <div id="page-scholar" class="page hidden">
+      <div class="panel"><h2>⚛ Apex Scholar</h2><p>Build a study prompt for JEE Advanced and Olympiad-level learning. The connected AI model and your selected sources determine depth and accuracy.</p>
+      <div class="field"><label>Subject</label><select id="subject"><option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Interdisciplinary</option></select></div>
+      <div class="field"><label>Level</label><select id="level"><option>JEE Advanced</option><option>JEE Advanced + INPhO/INChO/INMO</option><option>International Olympiad depth (IPhO/IChO/IMO)</option></select></div>
+      <div class="field"><label>Topic or question</label><textarea id="topic" rows="3" placeholder="e.g. Electrochemistry, advanced equilibrium, multi-step mechanisms…"></textarea></div>
+      <button class="primary" onclick="scholarPrompt()">Create study prompt ↗</button></div>
+      <div class="panel"><h2>Study workflow</h2><p>Ask for first-principles explanations, rigorous derivations, edge cases, mixed-concept problems, full solutions, and error analysis. Verify important results against trusted textbooks and official syllabi.</p></div>
+    </div>
+    <div id="page-vision" class="page hidden">
+      <div class="panel"><h2>🪄 Vision & Media Lab</h2><p>Select a photo, video, or PDF and describe what you want. This prototype can prepare a prompt and preview selected files; actual image/video editing requires a connected compatible model or editing service.</p>
+      <label class="filebox">＋<br><b>Choose photos, videos, or PDFs</b><br><small>Tap to select files from your device</small><input id="visionFiles" type="file" accept="image/*,video/*,application/pdf" multiple style="display:block;margin:14px auto 0;max-width:100%" onchange="handleVisionFiles(this.files)"></label>
+      <div id="fileList" class="panel hidden" style="margin-top:14px"></div>
+      <div class="field"><label>Editing / analysis prompt</label><textarea id="visionPrompt" rows="4" placeholder="e.g. Keep the original texture; remove the background; create a realistic festive composition…"></textarea></div>
+      <button class="primary" onclick="prepareVision()">Prepare prompt in chat ↗</button></div>
+    </div>
+    <div id="page-pdf" class="page hidden">
+      <div class="panel"><h2>📄 PDF Studio</h2><p>Create a well-structured document draft. This starter version exports a printable HTML document; choose “Save as PDF” in your browser's print dialog. Advanced PDF generation can be added to the connected backend.</p>
+      <div class="field"><label>Document type</label><select id="pdfType"><option>Colored study notes</option><option>JEE Advanced mock test</option><option>Step-by-step solutions</option><option>Formula sheet</option><option>Revision planner</option></select></div>
+      <div class="field"><label>Title</label><input id="pdfTitle" value="Apex AI Study Document"></div>
+      <div class="field"><label>Content</label><textarea id="pdfBody" rows="8" placeholder="Paste or write the notes, questions, or solutions here…"></textarea></div>
+      <button class="primary" onclick="makePdf()">Create printable PDF draft ↗</button></div>
+    </div>
+    <div id="page-library" class="page hidden">
+      <div class="panel"><h2>▣ Your Library</h2><p>Saved conversations and recent local activity on this device.</p><div id="libraryItems"></div><button class="toolbtn" onclick="clearLibrary()">Clear local history</button></div>
+    </div>
+    <div id="page-settings" class="page hidden">
+      <div class="panel"><h2>⚙ Settings & AI connection</h2><p>To enable live AI, connect a backend you control. Do not put a secret API key directly into a public app or APK; use a secure server to store provider keys.</p>
+      <div class="field"><label>AI backend endpoint (optional)</label><input id="endpoint" placeholder="https://your-server.example/api/chat"></div>
+      <div class="field"><label>Response language</label><select id="language"><option>Auto-detect (Hindi / English / Hinglish)</option><option>English</option><option>हिन्दी</option><option>Hinglish</option></select></div>
+      <button class="primary" onclick="saveSettings()">Save settings</button>
+      <p id="settingsMsg"></p></div>
+      <div class="panel"><h2>About privacy & limits</h2><p>Apex AI does not bypass provider safeguards. Connected services may receive prompts and uploaded files; read their privacy policies first. Free providers can impose quotas, and image/video generation may incur costs.</p></div>
+    </div>
+  </section>
+</main>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let chatHistory=JSON.parse(localStorage.getItem('apex_history')||'[]');
+let chosenFiles=[];
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));$('page-'+name).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));const titles={chat:'Apex Chat',scholar:'Apex Scholar',vision:'Vision & Media Lab',pdf:'PDF Studio',library:'Your Library',settings:'Settings'};$('topTitle').textContent=titles[name]||'Apex AI';if(name==='library')renderLibrary();if(name==='settings')loadSettings();window.scrollTo(0,0)}
+function newChat(){ $('messages').innerHTML='';$('welcome').classList.remove('hidden');$('quickCards').classList.remove('hidden');$('prompt').focus()}
+function addMessage(role,text){const d=document.createElement('div');d.className='msg '+role;const label=document.createElement('span');label.className='label';label.textContent=role==='user'?'You':'Apex AI';d.appendChild(label);d.appendChild(document.createTextNode(text));$('messages').appendChild(d);d.scrollIntoView({behavior:'smooth',block:'end'});return d}
+function quickPrompt(t){$('prompt').value=t;$('prompt').focus()}
+async function sendMessage(){const input=$('prompt'),message=input.value.trim();if(!message)return;input.value='';$('welcome').classList.add('hidden');$('quickCards').classList.add('hidden');addMessage('user',message);chatHistory.push({role:'user',content:message});localStorage.setItem('apex_history',JSON.stringify(chatHistory));const endpoint=localStorage.getItem('apex_endpoint');if(!endpoint){addMessage('ai','Apex AI is ready as an app shell, but live AI is not connected yet. Open Settings and connect your secure AI backend endpoint. You can still use the Scholar prompt builder and create printable PDF drafts.');return}const loading=addMessage('ai','Thinking…');$('engineStatus').textContent='Connecting';try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,language:$('language')?.value||'Auto-detect',history:chatHistory})});if(!r.ok)throw new Error('HTTP '+r.status);const data=await r.json();const reply=data.reply||data.message||data.output||'No reply field found. Expected JSON: {"reply":"..."}.';loading.lastChild.textContent=reply;chatHistory.push({role:'assistant',content:reply});localStorage.setItem('apex_history',JSON.stringify(chatHistory));$('engineStatus').textContent='Connected'}catch(e){loading.lastChild.textContent='Could not reach the AI backend. Check the endpoint, server availability, and CORS settings. ('+e.message+')';$('engineStatus').textContent='Offline'}}
+function scholarPrompt(){const s=$('subject').value,l=$('level').value,t=$('topic').value.trim();if(!t){$('topic').focus();return}showPage('chat');$('prompt').value=`Act as a rigorous ${s} tutor. Level: ${l}. Topic/question: ${t}\nTeach from first principles, state assumptions, show derivations and reasoning, include challenging JEE Advanced/Olympiad-style examples, and give complete checked solutions. Distinguish syllabus facts from enrichment.`;sendMessage()}
+function handleFiles(files){chosenFiles=[...chosenFiles,...files];if(files.length){$('prompt').value+=($('prompt').value?'\\n':'')+'[Selected '+files.length+' file(s): '+[...files].map(f=>f.name).join(', ')+'. Add your instructions.]';}}
+function handleVisionFiles(files){chosenFiles=[...files];const box=$('fileList');box.classList.remove('hidden');box.innerHTML='<b>Selected files</b><br>'+[...files].map(f=>`${escapeHtml(f.name)} — ${(f.size/1024/1024).toFixed(2)} MB`).join('<br>')}
+function prepareVision(){const p=$('visionPrompt').value.trim();if(!p){$('visionPrompt').focus();return}showPage('chat');$('prompt').value='Media task: '+p+(chosenFiles.length?'\nSelected local files: '+chosenFiles.map(f=>f.name).join(', ')+'. Note: this starter app does not upload files to the AI backend yet.':'');$('prompt').focus()}
+function makePdf(){const title=$('pdfTitle').value||'Apex AI Study Document',type=$('pdfType').value,body=$('pdfBody').value;if(!body.trim()){alert('Add some content first.');return}const w=window.open('','_blank');if(!w){alert('Allow pop-ups to create the printable document.');return}w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${escapeHtml(title)}</title><style>body{font-family:Arial,sans-serif;color:#202036;max-width:850px;margin:40px auto;padding:0 25px;line-height:1.65}header{padding:24px;border-radius:15px;background:linear-gradient(120deg,#4f2b92,#9b5cff,#d946ef);color:white}h1{margin:0}small{letter-spacing:2px;text-transform:uppercase}main{white-space:pre-wrap;padding:24px 4px}footer{border-top:2px solid #9b5cff;padding-top:12px;color:#666;font-size:12px}@media print{body{margin:0;max-width:none}header{print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style></head><body><header><small>Apex AI · ${escapeHtml(type)}</small><h1>${escapeHtml(title)}</h1></header><main>${escapeHtml(body)}</main><footer>Created with Apex AI · Review technical answers before relying on them.</footer><script>window.onload=()=>setTimeout(()=>window.print(),350)<\/script></body></html>`);w.document.close()}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function saveSettings(){localStorage.setItem('apex_endpoint',$('endpoint').value.trim());localStorage.setItem('apex_language',$('language').value);$('settingsMsg').textContent='Saved on this device.';$('engineStatus').textContent=$('endpoint').value.trim()?'Endpoint configured':'Local demo mode'}
+function loadSettings(){$('endpoint').value=localStorage.getItem('apex_endpoint')||'';$('language').value=localStorage.getItem('apex_language')||'Auto-detect (Hindi / English / Hinglish)'}
+function renderLibrary(){const box=$('libraryItems');if(!chatHistory.length){box.innerHTML='<p>No saved messages yet. Chats are stored locally in this browser.</p>';return}box.innerHTML=chatHistory.slice(-20).reverse().map(m=>`<div style="border-bottom:1px solid #30294d;padding:10px 0"><b>${m.role==='user'?'You':'Apex AI'}</b><p style="margin:5px 0;white-space:pre-wrap">${escapeHtml(m.content).slice(0,350)}</p></div>`).join('')}
+function clearLibrary(){if(confirm('Clear local chat history on this device?')){chatHistory=[];localStorage.removeItem('apex_history');renderLibrary()}}
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body></html>
